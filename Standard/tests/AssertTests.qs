@@ -4,7 +4,6 @@ namespace Microsoft.Quantum.Tests {
     open Microsoft.Quantum.Arithmetic;
     open Microsoft.Quantum.Primitive;
     open Microsoft.Quantum.Canon;
-    open Microsoft.Quantum.Extensions.Testing;
     open Microsoft.Quantum.Diagnostics;
 
 
@@ -61,11 +60,8 @@ namespace Microsoft.Quantum.Tests {
     /// this operation tests whether we can reproduce that using our
     /// operation equality assertions.
     operation SelfAdjointOperationsTest () : Unit {
-        
-        let ops = [I, X, Y, Z, H];
-        
-        for (idxOp in 0 .. Length(ops) - 1) {
-            AssertOperationsEqualReferenced(ApplyToEach(ops[idxOp], _), ApplyToEachA(ops[idxOp], _), 3);
+        for (op in [I, X, Y, Z, H]) {
+            AssertOperationsEqualReferenced(3, ApplyToEach(op, _), ApplyToEachA(op, _));
         }
     }
     
@@ -77,13 +73,10 @@ namespace Microsoft.Quantum.Tests {
     /// # Remarks
     /// Marked as ex-fail due to known issues with Bind.
     operation BindSelfAdjointOperationsTestExFail () : Unit {
-        
-        let ops = [I, X, Y, Z, H];
-        
-        for (idxOp in 0 .. Length(ops) - 1) {
+        for (op in [I, X, Y, Z, H]) {
             let arr = [ops[idxOp], Adjoint ops[idxOp]];
             let bound = BindCA(arr);
-            AssertOperationsEqualReferenced(ApplyToEachCA(BindCA(arr), _), ApplyToEachA(I, _), 3);
+            AssertOperationsEqualReferenced(3, ApplyToEachCA(BindCA(arr), _), ApplyToEachA(I, _));
         }
     }
     

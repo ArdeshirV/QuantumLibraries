@@ -94,11 +94,10 @@ namespace Microsoft.Quantum.Tests {
     /// # Summary
     /// Compares QFT to the hard-coded implementations
     operation QFTTest () : Unit {
-        
         let testFunctions = [QFT1, QFT2, QFT3, QFT4];
         
         for (i in 0 .. Length(testFunctions) - 1) {
-            AssertOperationsEqualReferenced(ApplyBEToRegisterA(testFunctions[i], _), ApplyBEToRegisterA(QFT, _), i + 1);
+            AssertOperationsEqualReferenced(i + 1, ApplyBEToRegisterA(testFunctions[i], _), ApplyBEToRegisterA(QFT, _));
         }
     }
     
